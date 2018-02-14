@@ -1,0 +1,2 @@
+class UserMedicalHistory < ApplicationRecord
+end
