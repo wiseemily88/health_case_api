@@ -19,24 +19,43 @@ RSpec.describe 'user medical histories API' do
   end
 
   describe "#create" do
-    it "it can create a new user medical history" do
-      post "/api/v1/users/#{user.id}/medical_histories/#{medical_history.id}"
+    context "the user and medical history already exist" do
+      it "it can create a new user medical history" do
+        post "/api/v1/users/#{user.id}/medical_histories/#{medical_history.id}"
 
-      expect(response.status).to eq(201)
-      expect(user.medical_histories).to include(medical_history)
+        expect(response.status).to eq(201)
+        expect(user.medical_histories).to include(medical_history)
+      end
+    end
+
+    context "the user or medical history does not exist" do
+      it "it can create a new user medical history" do
+        post "/api/v1/users/50/medical_histories/7"
+
+        expect(response.status).to eq(404)
+      end
     end
   end
 
   describe "#delete" do
+    context "the user and medical history already exist" do
 
-    it "it can delete a user's medical history" do
-      @medicalhistory_2 = create(:medical_history)
-      user.medical_histories << @medicalhistory_2
-      delete "/api/v1/users/#{user.id}/medical_histories/#{@medicalhistory_2.id}"
+      it "it can delete a user's medical history" do
+        @medicalhistory_2 = create(:medical_history)
+        user.medical_histories << @medicalhistory_2
+        delete "/api/v1/users/#{user.id}/medical_histories/#{@medicalhistory_2.id}"
 
-      user.reload
-      expect(response.status).to eq(200)
-      expect(user.medical_histories).to_not include(@medicalhistory_2)
+        user.reload
+        expect(response.status).to eq(200)
+        expect(user.medical_histories).to_not include(@medicalhistory_2)
+      end
+    end
+  end
+  context "the user or medical history does not exist" do
+    it "it can create a new user medical history" do
+      delete "/api/v1/users/5/medical_histories/7"
+
+      expect(response.status).to eq(404)
     end
   end
 end
