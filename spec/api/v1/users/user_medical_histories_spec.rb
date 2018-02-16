@@ -39,4 +39,18 @@ RSpec.describe 'user medical histories API' do
       expect(user.medical_histories).to_not include(@medicalhistory_2)
     end
   end
+
+describe "#update" do
+
+    it "it can update a user's medical history" do
+      @medicalhistory_2 = create(:medical_history)
+      user.medical_histories << @medicalhistory_2
+
+      patch "/api/v1/users/#{user.id}/medical_histories/#{@medicalhistory_2.id}", params: {:note => "I had this condition during the summer of 2009"}
+      user_medical_history = UserMedicalHistory.find_by(user_id: user.id, medical_history_id: @medicalhistory_2.id)
+
+      expect(response).to be_success
+      expect(user_medical_history.note).to eq("I had this condition during the summer of 2009")
+    end
+  end
 end

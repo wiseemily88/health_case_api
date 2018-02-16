@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180214054728) do
+ActiveRecord::Schema.define(version: 20180216030236) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20180214054728) do
     t.bigint "medical_history_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "note"
     t.index ["medical_history_id"], name: "index_user_medical_histories_on_medical_history_id"
     t.index ["user_id"], name: "index_user_medical_histories_on_user_id"
   end

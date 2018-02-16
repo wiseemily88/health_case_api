@@ -1,6 +1,6 @@
 class Api::V1::Users::MedicalHistoriesController < ApplicationController
 before_action :find_user
-before_action :find_medical_history_item, only: [:create, :destroy]
+before_action :find_medical_history_item, only: [:create, :destroy, :update]
 
   def index
     render json: @user.medical_histories
@@ -17,8 +17,8 @@ before_action :find_medical_history_item, only: [:create, :destroy]
 
   def destroy
     if @user && @medicalhistory
-      @record = UserMedicalHistory.find_by(user_id: @user.id, medical_history_id: @medicalhistory.id)
-      @record.destroy
+      record = UserMedicalHistory.find_by(user_id: @user.id, medical_history_id: @medicalhistory.id)
+      record.destroy
 
       render json: { message: "Successfully removed #{@medicalhistory.name} from #{@user.email}"}, status: 200
     else
@@ -26,7 +26,17 @@ before_action :find_medical_history_item, only: [:create, :destroy]
     end
   end
 
+  def update
+    record = UserMedicalHistory.find_by(user_id: @user.id, medical_history_id: @medicalhistory.id)
+    if record.update(note: params[:note])
+      render json: record
+    else
+      render json: record.errors, status: 400
+    end
+  end
+
 private
+
 
   def find_user
     @user ||= User.find_by(id: params[:user_id])

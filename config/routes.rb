@@ -7,6 +7,7 @@ namespace :api do
       get '/:user_id/medical_histories', to: "medical_histories#index", as: :user_medical_histories
       post '/:user_id/medical_histories/:medical_history_id', to: "medical_histories#create", as: :new_user_medical_histories
       delete '/:user_id/medical_histories/:medical_history_id', to: "medical_histories#destroy", as: :delete_user_medical_histories
+      patch '/:user_id/medical_histories/:medical_history_id', to: "medical_histories#update", as: :edit_user_medical_histories
     end
     end
   end
