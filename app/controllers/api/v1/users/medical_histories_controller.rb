@@ -7,6 +7,7 @@ before_action :find_medical_history_item, only: [:create, :destroy, :update]
   end
 
   def create
+# test is passing but keep getting a 422
     if @user && @medicalhistory
       @user.medical_histories << @medicalhistory
       render json:{ message: "Successfully added #{@medicalhistory.name} to #{@user.email}"}, status: 201
