@@ -1,4 +1,5 @@
 class Api::V1::Users::ImmunizationsController < ApplicationController
+
   before_action :find_user
   before_action :find_immunization_item, only: [:create, :destroy, :update]
 
@@ -45,4 +46,5 @@ end
   def find_immunization_item
     @immunization ||= Immunization.find_by(id: params[:immunization_id])
   end
+
 end
