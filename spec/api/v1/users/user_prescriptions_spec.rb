@@ -61,4 +61,16 @@ RSpec.describe 'user prescription API' do
 
     end
   end
+  describe "#delete" do
+    it "user can delete an existing prescription" do
+      prescription = user.prescriptions.last
+
+      delete "/api/v1/users/#{user.id}/prescriptions/#{prescription.id}"
+
+      user.reload
+      expect(response.status).to eq(200)
+      expect(user.prescriptions).to_not include(prescription)
+
+    end
+  end
 end
