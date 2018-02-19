@@ -23,6 +23,7 @@ namespace :api do
 
       get '/:user_id/prescriptions', to: "prescriptions#index", as: :user_prescriptions
       post'/:user_id/prescriptions', to:"prescriptions#create", as: :user_new_prescriptions
+      patch'/:user_id/prescriptions/:prescription_id', to:"prescriptions#update", as: :user_edit_prescriptions
     end
     end
   end

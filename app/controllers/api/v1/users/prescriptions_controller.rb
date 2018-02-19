@@ -5,7 +5,6 @@ class Api::V1::Users::PrescriptionsController < ApplicationController
   end
 
   def create
-
     prescription = Prescription.new(user_id: @user.id, name: params[:name], frequency: params[:frequency], dosage: params[:dosage])
     if prescription.save
       render json: prescription
@@ -14,6 +13,18 @@ class Api::V1::Users::PrescriptionsController < ApplicationController
     end
   end
 
+  def update
+
+    @prescription = Prescription.find_by(id: params[:prescription_id], user_id: @user.id)
+    if @prescription.update(prescription_params)
+
+      render json: @prescription
+    else
+      render json: @prescription.errors, status: 400
+    end
+  end
+
+
 
   private
   def find_user
@@ -21,6 +32,6 @@ class Api::V1::Users::PrescriptionsController < ApplicationController
   end
 
   def prescription_params
-    params.permit(:name, :frequency, :dosage)
+    params.permit(:name, :frequency, :dosage, :note)
   end
 end

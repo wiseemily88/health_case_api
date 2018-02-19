@@ -27,25 +27,38 @@ RSpec.describe 'user prescription API' do
       expect(Prescription.last.frequency).to eq("monthly")
     end
   end
-    context "invalid attributes" do
-      it "fails to create the prescription without a name, freqency, or dosage" do
-          post "/api/v1/users/#{user.id}/prescriptions", {params: { dosage: '100mm', frequency: 'monthly'}}
+  context "invalid attributes" do
+    it "fails to create the prescription without a name, freqency, or dosage" do
+      post "/api/v1/users/#{user.id}/prescriptions", {params: { dosage: '100mm', frequency: 'monthly'}}
 
-        json = JSON.parse(response.body)
-        expect(response.status).to eq(400)
-        expect(json["name"].first).to eq("can't be blank")
+      json = JSON.parse(response.body)
+      expect(response.status).to eq(400)
+      expect(json["name"].first).to eq("can't be blank")
 
-        post "/api/v1/users/#{user.id}/prescriptions", {params: { dosage: '100mm', name: 'humira'}}
+      post "/api/v1/users/#{user.id}/prescriptions", {params: { dosage: '100mm', name: 'humira'}}
 
-        json = JSON.parse(response.body)
-        expect(response.status).to eq(400)
-        expect(json["frequency"].first).to eq("can't be blank")
+      json = JSON.parse(response.body)
+      expect(response.status).to eq(400)
+      expect(json["frequency"].first).to eq("can't be blank")
 
-        post "/api/v1/users/#{user.id}/prescriptions", {params: { name: 'humira', frequency: 'monthly'}}
+      post "/api/v1/users/#{user.id}/prescriptions", {params: { name: 'humira', frequency: 'monthly'}}
 
-        json = JSON.parse(response.body)
-        expect(response.status).to eq(400)
-        expect(json["dosage"].first).to eq("can't be blank")
-      end
+      json = JSON.parse(response.body)
+      expect(response.status).to eq(400)
+      expect(json["dosage"].first).to eq("can't be blank")
     end
   end
+
+  describe "#update" do
+    it "user can update an existing prescription" do
+      prescription = user.prescriptions.last
+
+      patch "/api/v1/users/#{user.id}/prescriptions/#{prescription.id}", {params: {note: "I don't feel great taking this", frequency: 'weekly'}}
+
+      user.reload
+      expect(response.status).to eq(200)
+      expect(prescription.frequency).to eq("weekly")
+
+    end
+  end
+end
