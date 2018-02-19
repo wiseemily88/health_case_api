@@ -28,6 +28,9 @@ namespace :api do
       delete'/:user_id/prescriptions/:prescription_id', to:"prescriptions#destroy", as: :user_delete_prescriptions
 
       get '/:user_id/immunizations', to: "immunizations#index", as: :user_immunizations
+      post '/:user_id/immunizations/:immunization_id', to: "immunizations#create", as: :new_user_immunization_histories
+      delete'/:user_id/immunizations/:immunization_id', to:"immunizations#destroy", as: :user_delete_immunizations
+      patch'/:user_id/immunizations/:immunization_id', to:"immunizations#update", as: :user_edit_immunizations
     end
     end
   end

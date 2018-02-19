@@ -34,9 +34,9 @@ FactoryBot.define do
 
 factory :user_with_immunization_history, class: User do
       after(:create) do |user|
-      immunization    = create(:immunization)
-      user.immunizations << immunization
+      immunizations = create_list(:immunization, 3)
+      user.immunizations << immunizations
     end
   end
-  end
+end
 end
