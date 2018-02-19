@@ -4,6 +4,7 @@ namespace :api do
     resources :medical_histories,  only: [:index]
     resources :family_histories,  only: [:index]
     resources :surgical_histories,  only: [:index]
+    resources :immunizations,  only: [:index]
 
     namespace :users do
       get '/:user_id/medical_histories', to: "medical_histories#index", as: :user_medical_histories
@@ -25,6 +26,11 @@ namespace :api do
       post'/:user_id/prescriptions', to:"prescriptions#create", as: :user_new_prescriptions
       patch'/:user_id/prescriptions/:prescription_id', to:"prescriptions#update", as: :user_edit_prescriptions
       delete'/:user_id/prescriptions/:prescription_id', to:"prescriptions#destroy", as: :user_delete_prescriptions
+
+      get '/:user_id/immunizations', to: "immunizations#index", as: :user_immunizations
+      post '/:user_id/immunizations/:immunization_id', to: "immunizations#create", as: :new_user_immunization_histories
+      delete'/:user_id/immunizations/:immunization_id', to:"immunizations#destroy", as: :user_delete_immunizations
+      patch'/:user_id/immunizations/:immunization_id', to:"immunizations#update", as: :user_edit_immunizations
     end
     end
   end

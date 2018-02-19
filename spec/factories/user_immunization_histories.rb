@@ -3,6 +3,5 @@ FactoryBot.define do
   user
   immunization
   date
-
   end
 end
