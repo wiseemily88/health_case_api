@@ -22,6 +22,7 @@ namespace :api do
       patch '/:user_id/surgical_histories/:surgical_history_id', to: "surgical_histories#update", as: :edit_user_surgical_histories
 
       get '/:user_id/prescriptions', to: "prescriptions#index", as: :user_prescriptions
+      post'/:user_id/prescriptions', to:"prescriptions#create", as: :user_new_prescriptions
     end
     end
   end
