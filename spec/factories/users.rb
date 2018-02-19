@@ -16,5 +16,13 @@ FactoryBot.define do
         user.family_histories << f_history
       end
     end
+
+
+  factory :user_with_surgical_history, class: User do
+        after(:create) do |user|
+        s_history    = create(:surgical_history)
+        user.surgical_histories << s_history
+      end
+    end
   end
 end
