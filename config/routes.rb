@@ -20,6 +20,11 @@ namespace :api do
       post '/:user_id/surgical_histories/:surgical_history_id', to: "surgical_histories#create", as: :new_user_surgical_histories
       delete '/:user_id/surgical_histories/:surgical_history_id', to: "surgical_histories#destroy", as: :delete_user_surgical_histories
       patch '/:user_id/surgical_histories/:surgical_history_id', to: "surgical_histories#update", as: :edit_user_surgical_histories
+
+      get '/:user_id/prescriptions', to: "prescriptions#index", as: :user_prescriptions
+      post'/:user_id/prescriptions', to:"prescriptions#create", as: :user_new_prescriptions
+      patch'/:user_id/prescriptions/:prescription_id', to:"prescriptions#update", as: :user_edit_prescriptions
+      delete'/:user_id/prescriptions/:prescription_id', to:"prescriptions#destroy", as: :user_delete_prescriptions
     end
     end
   end

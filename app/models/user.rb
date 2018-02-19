@@ -10,4 +10,6 @@ class User < ApplicationRecord
 
   has_many :user_surgical_histories
   has_many :surgical_histories, through: :user_surgical_histories
+
+  has_many :prescriptions
 end

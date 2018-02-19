@@ -24,5 +24,12 @@ FactoryBot.define do
         user.surgical_histories << s_history
       end
     end
+
+  factory :user_with_prescriptions, class: User do
+        after(:create) do |user|
+        prescriptions    = create_list(:prescription, 3)
+        user.prescriptions << prescriptions
+      end
+    end
   end
 end
