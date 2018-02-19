@@ -36,28 +36,28 @@ RSpec.describe 'user family histories API' do
       end
     end
   end
-#
-#   describe "#delete" do
-#     context "the user and medical history already exist" do
-#
-#       it "it can delete a user's medical history" do
-#         @medicalhistory_2 = create(:medical_history)
-#         user.medical_histories << @medicalhistory_2
-#         delete "/api/v1/users/#{user.id}/medical_histories/#{@medicalhistory_2.id}"
-#
-#         user.reload
-#         expect(response.status).to eq(200)
-#         expect(user.medical_histories).to_not include(@medicalhistory_2)
-#       end
-#     end
-#   end
-#   context "the user or medical history does not exist" do
-#     it "it can create a new user medical history" do
-#       delete "/api/v1/users/5/medical_histories/7"
-#
-#       expect(response.status).to eq(404)
-#     end
-#   end
+
+  describe "#delete" do
+    context "the user and family history already exist" do
+
+      it "it can delete a user's family history" do
+        @familyhistory_2 = create(:family_history)
+        user.family_histories << @familyhistory_2
+        delete "/api/v1/users/#{user.id}/family_histories/#{@familyhistory_2.id}"
+      
+        user.reload
+        expect(response.status).to eq(200)
+        expect(user.family_histories).to_not include(@familyhistory_2)
+      end
+    end
+  end
+  context "the user or family history does not exist" do
+    it "it can create a new user family` history" do
+      delete "/api/v1/users/5/family_histories/7"
+
+      expect(response.status).to eq(404)
+    end
+  end
 #
 # describe "#update" do
 #

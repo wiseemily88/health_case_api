@@ -12,6 +12,7 @@ namespace :api do
 
       get '/:user_id/family_histories', to: "family_histories#index", as: :user_family_histories
       post '/:user_id/family_histories/:family_history_id', to: "family_histories#create", as: :new_user_family_histories
+      delete '/:user_id/family_histories/:family_history_id', to: "family_histories#destroy", as: :delete_user_family_histories
     end
     end
   end
