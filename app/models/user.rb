@@ -7,4 +7,7 @@ class User < ApplicationRecord
 
   has_many :user_family_histories
   has_many :family_histories, through: :user_family_histories
+
+  has_many :user_surgical_histories
+  has_many :surgical_histories, through: :user_surgical_histories
 end
