@@ -4,6 +4,7 @@ namespace :api do
     resources :medical_histories,  only: [:index]
     resources :family_histories,  only: [:index]
     resources :surgical_histories,  only: [:index]
+    resources :immunizations,  only: [:index]
 
     namespace :users do
       get '/:user_id/medical_histories', to: "medical_histories#index", as: :user_medical_histories

@@ -31,5 +31,12 @@ FactoryBot.define do
         user.prescriptions << prescriptions
       end
     end
+
+factory :user_with_immunization_history, class: User do
+      after(:create) do |user|
+      immunization    = create(:immunization)
+      user.immunization_histories << immunization
+    end
+  end
   end
 end
