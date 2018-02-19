@@ -44,7 +44,7 @@ RSpec.describe 'user family histories API' do
         @familyhistory_2 = create(:family_history)
         user.family_histories << @familyhistory_2
         delete "/api/v1/users/#{user.id}/family_histories/#{@familyhistory_2.id}"
-      
+
         user.reload
         expect(response.status).to eq(200)
         expect(user.family_histories).to_not include(@familyhistory_2)
@@ -58,18 +58,18 @@ RSpec.describe 'user family histories API' do
       expect(response.status).to eq(404)
     end
   end
-#
-# describe "#update" do
-#
-#     it "it can update a user's medical history" do
-#       @medicalhistory_2 = create(:medical_history)
-#       user.medical_histories << @medicalhistory_2
-#
-#       patch "/api/v1/users/#{user.id}/medical_histories/#{@medicalhistory_2.id}", params: {:note => "I had this condition during the summer of 2009"}
-#       user_medical_history = UserMedicalHistory.find_by(user_id: user.id, medical_history_id: @medicalhistory_2.id)
-#
-#       expect(response).to be_success
-#       expect(user_medical_history.note).to eq("I had this condition during the summer of 2009")
-#     end
-#   end
+
+describe "#update" do
+
+    it "it can update a user's family history" do
+      @familyhistory_2 = create(:family_history)
+      user.family_histories << @familyhistory_2
+
+      patch "/api/v1/users/#{user.id}/family_histories/#{@familyhistory_2.id}", params: {:note => "I had this condition during the summer of 2009"}
+      user_family_history = UserFamilyHistory.find_by(user_id: user.id, family_history_id: @familyhistory_2.id)
+
+      expect(response).to be_success
+      expect(user_family_history.note).to eq("I had this condition during the summer of 2009")
+    end
+  end
 end

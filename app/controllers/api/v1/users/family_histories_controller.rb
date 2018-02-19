@@ -1,6 +1,6 @@
 class Api::V1::Users::FamilyHistoriesController < ApplicationController
 before_action :find_user
-before_action :find_family_history_item, only: [:create,  :destroy]
+before_action :find_family_history_item, only: [:create,  :destroy, :update]
 
 
   def index
@@ -14,8 +14,16 @@ def create
    else
       render json: { message: "Cannot find requested family history and/or user" }, status: 404
     end
-
 end
+
+  def update
+    record = UserFamilyHistory.find_by(user_id: @user.id, family_history_id: @familyhistory.id)
+    if record.update(note: params[:note])
+      render json: record
+    else
+      render json: record.errors, status: 400
+    end
+  end
 
 def destroy
   if @user && @familyhistory
