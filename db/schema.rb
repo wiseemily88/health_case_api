@@ -10,13 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180219223400) do
+ActiveRecord::Schema.define(version: 20180220002503) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "family_histories", force: :cascade do |t|
     t.text "name"
+  end
+
+  create_table "health_maintenances", force: :cascade do |t|
+    t.string "name"
   end
 
   create_table "immunizations", force: :cascade do |t|
@@ -50,6 +54,17 @@ ActiveRecord::Schema.define(version: 20180219223400) do
     t.datetime "updated_at", null: false
     t.index ["family_history_id"], name: "index_user_family_histories_on_family_history_id"
     t.index ["user_id"], name: "index_user_family_histories_on_user_id"
+  end
+
+  create_table "user_health_maintenances", force: :cascade do |t|
+    t.text "note"
+    t.date "date"
+    t.bigint "user_id"
+    t.bigint "health_maintenance_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["health_maintenance_id"], name: "index_user_health_maintenances_on_health_maintenance_id"
+    t.index ["user_id"], name: "index_user_health_maintenances_on_user_id"
   end
 
   create_table "user_immunization_histories", force: :cascade do |t|
@@ -91,6 +106,8 @@ ActiveRecord::Schema.define(version: 20180219223400) do
   add_foreign_key "prescriptions", "users"
   add_foreign_key "user_family_histories", "family_histories"
   add_foreign_key "user_family_histories", "users"
+  add_foreign_key "user_health_maintenances", "health_maintenances"
+  add_foreign_key "user_health_maintenances", "users"
   add_foreign_key "user_immunization_histories", "immunizations"
   add_foreign_key "user_immunization_histories", "users"
   add_foreign_key "user_medical_histories", "medical_histories"
