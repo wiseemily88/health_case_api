@@ -14,5 +14,8 @@ class User < ApplicationRecord
   has_many :user_immunization_histories
   has_many :immunizations, through: :user_immunization_histories
 
+  has_many :user_health_maintenances
+  has_many :health_maintenances, through: :user_health_maintenances
+
   has_many :prescriptions
 end

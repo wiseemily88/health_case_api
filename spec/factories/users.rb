@@ -38,5 +38,11 @@ factory :user_with_immunization_history, class: User do
       user.immunizations << immunizations
     end
   end
+factory :user_with_health_maintenance, class: User do
+      after(:create) do |user|
+      health_maintenance = create_list(:health_maintenance, 3)
+      user.health_maintenances << health_maintenance
+    end
+  end
 end
 end

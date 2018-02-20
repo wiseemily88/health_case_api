@@ -5,6 +5,7 @@ namespace :api do
     resources :family_histories,  only: [:index]
     resources :surgical_histories,  only: [:index]
     resources :immunizations,  only: [:index]
+    resources :health_maintenances, only: [:index]
 
     namespace :users do
       get '/:user_id/medical_histories', to: "medical_histories#index", as: :user_medical_histories
@@ -31,6 +32,11 @@ namespace :api do
       post '/:user_id/immunizations/:immunization_id', to: "immunizations#create", as: :new_user_immunization_histories
       delete'/:user_id/immunizations/:immunization_id', to:"immunizations#destroy", as: :user_delete_immunizations
       patch'/:user_id/immunizations/:immunization_id', to:"immunizations#update", as: :user_edit_immunizations
+
+      get '/:user_id/health_maintenances', to: "health_maintenances#index", as: :user_health_maintenances
+      post '/:user_id/health_maintenances/:health_maintenance_id', to: "health_maintenances#create", as: :new_user_health_maintenaces
+      delete'/:user_id/health_maintenances/:health_maintenance_id', to:"health_maintenances#destroy", as: :user_delete_health_maintenances
+      patch'/:user_id/health_maintenances/:health_maintenance_id', to:"health_maintenances#update", as: :user_edit_health_maintenances
     end
     end
   end
