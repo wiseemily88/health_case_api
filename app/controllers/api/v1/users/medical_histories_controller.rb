@@ -12,6 +12,7 @@ before_action :find_medical_history_item, only: [:create, :destroy, :update]
       @user.medical_histories << @medicalhistory
       response = {
         data: {
+          redcord_id: UserMedicalHistory.find_by(user_id: @user.id, medical_history_id: @medicalhistory.id).id,
           id: @medicalhistory.id,
           name: @medicalhistory.name,
           user: {
