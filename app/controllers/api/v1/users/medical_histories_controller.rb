@@ -42,7 +42,19 @@ before_action :find_medical_history_item, only: [:create, :destroy, :update]
   def update
     record = UserMedicalHistory.find_by(user_id: @user.id, medical_history_id: @medicalhistory.id)
     if record.update(note: params[:note])
-      render json: record
+      response = {
+        data: {
+          id: @medicalhistory.id,
+          name: @medicalhistory.name,
+          user: {
+            id: @user.id,
+          },
+          note: {
+            note: record.note
+          },
+        }
+      }
+      render json:response.merge({ message: "Successfully updated #{@medicalhistory.name} to #{@user.email}"}), status: 201
     else
       render json: record.errors, status: 400
     end
