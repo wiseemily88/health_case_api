@@ -16,7 +16,10 @@ before_action :find_medical_history_item, only: [:create, :destroy, :update]
           name: @medicalhistory.name,
           user: {
             id: @user.id,
-          }
+          },
+          note: {
+            note: UserMedicalHistory.find_by(user_id: @user.id, medical_history_id: @medicalhistory.id).note
+          },
         }
       }
       render json: response.merge({ message: "Successfully added #{@medicalhistory.name} to #{@user.email}"}), status: 201
