@@ -10,7 +10,16 @@ before_action :find_medical_history_item, only: [:create, :destroy, :update]
     if @user && @medicalhistory
 
       @user.medical_histories << @medicalhistory
-      render json:{ message: "Successfully added #{@medicalhistory.name} to #{@user.email}"}, status: 201
+      response = {
+        data: {
+          id: @medicalhistory.id,
+          name: @medicalhistory.name,
+          user: {
+            id: @user.id,
+          }
+        }
+      }
+      render json: response.merge({ message: "Successfully added #{@medicalhistory.name} to #{@user.email}"}), status: 201
    else
       render json: { message: "Cannot find requested medicalhistory and/or user" }, status: 404
     end
