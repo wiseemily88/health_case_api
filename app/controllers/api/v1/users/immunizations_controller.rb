@@ -11,7 +11,20 @@ class Api::V1::Users::ImmunizationsController < ApplicationController
   def create
     if @user && @immunization
       @user.immunizations << @immunization
-      render json:{ message: "Successfully added #{@immunization.name} to #{@user.email}"}, status: 201
+    response = {
+      data: {
+        redcord_id: UserImmunizationHistory.find_by(user_id: @user.id, immunization_id: @immunization.id).id,
+        id: @immunization.id,
+        name: @immunization.name,
+        user: {
+          id: @user.id,
+        },
+        note: {
+          note: UserImmunizationHistory.find_by(user_id: @user.id, immunization_id: @immunization.id).note
+        },
+      }
+    }
+      render json: response.merge({ message: "Successfully added #{@immunization.name} to #{@user.email}"}), status: 201
     else
       render json: { message: "Cannot find requested immunization and/or user" }, status: 404
     end
@@ -30,7 +43,21 @@ class Api::V1::Users::ImmunizationsController < ApplicationController
 def update
   record = UserImmunizationHistory.find_by(user_id: @user.id, immunization_id: @immunization.id)
   if record.update(note: params[:note])
-    render json: record
+
+  response = {
+    data: {
+      id: @immunization.id,
+      name: @immunization.name,
+      user: {
+        id: @user.id,
+      },
+      note: {
+        note: record.note
+      },
+    }
+  }
+  render json:response.merge({ message: "Successfully updated #{@immunization.name} to #{@user.email}"}), status: 201
+
   else
     render json: record.errors, status: 400
   end
