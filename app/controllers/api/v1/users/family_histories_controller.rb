@@ -10,7 +10,20 @@ before_action :find_family_history_item, only: [:create,  :destroy, :update]
 def create
     if @user && @familyhistory
       @user.family_histories << @familyhistory
-      render json:{ message: "Successfully added #{@familyhistory.name} to #{@user.email}"}, status: 201
+      response = {
+        data: {
+          redcord_id: UserFamilyHistory.find_by(user_id: @user.id, family_history_id: @medicalhistory.id).id,
+          id: @familyhistory.id,
+          name: @familyhistory.name,
+          user: {
+            id: @user.id,
+          },
+          note: {
+            note: UserFamilylHistory.find_by(user_id: @user.id, family_history_id: @familyhistory.id).note
+          },
+        }
+      }
+      render json: response.merge({ message: "Successfully added #{@familyhistory.name} to #{@user.email}"}), status: 201
    else
       render json: { message: "Cannot find requested family history and/or user" }, status: 404
     end
@@ -19,7 +32,20 @@ end
   def update
     record = UserFamilyHistory.find_by(user_id: @user.id, family_history_id: @familyhistory.id)
     if record.update(note: params[:note])
-      render json: record
+
+      response = {
+        data: {
+          id: @familyhistory.id,
+          name: @familyhistory.name,
+          user: {
+            id: @user.id,
+          },
+          note: {
+            note: record.note
+          },
+        }
+      }
+      render json: response.merge({ message: "Successfully updated #{@familyhistory.name} to #{@user.email}"}), status: 201
     else
       render json: record.errors, status: 400
     end
