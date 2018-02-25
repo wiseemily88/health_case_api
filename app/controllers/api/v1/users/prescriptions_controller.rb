@@ -5,11 +5,23 @@ class Api::V1::Users::PrescriptionsController < ApplicationController
   end
 
   def create
-    prescription = Prescription.new(user_id: @user.id, name: params[:name], frequency: params[:frequency], dosage: params[:dosage])
-    if prescription.save
-      render json: prescription
+    @prescription = Prescription.new(user_id: @user.id, name: params[:name], frequency: params[:frequency], dosage: params[:dosage])
+    if @prescription.save
+    response = {
+      data: {
+          id: @prescription.id,
+          name: @prescription.name,
+          dosage: @prescription.dosage,
+          frequency: @prescription.frequency,
+          note: @prescription.note,
+          user: {
+            id: @user.id,
+          },
+        }
+      }
+      render json: response.merge({ message: "Successfully added #{@prescription.name} to #{@user.email}"}), status: 200
     else
-      render json: prescription.errors, status: 400
+      render json: @prescription.errors, status: 400
     end
   end
 
@@ -17,8 +29,19 @@ class Api::V1::Users::PrescriptionsController < ApplicationController
 
     @prescription = Prescription.find_by(id: params[:prescription_id], user_id: @user.id)
     if @prescription.update(prescription_params)
-
-      render json: @prescription
+      response = {
+        data: {
+            id: @prescription.id,
+            name: @prescription.name,
+            dosage: @prescription.dosage,
+            frequency: @prescription.frequency,
+            note: @prescription.note,
+            user: {
+              id: @user.id,
+            },
+          }
+        }
+      render json: response.merge( {message: "Successfully added #{@prescription.name} to #{@user.email}"}), status: 200
     else
       render json: @prescription.errors, status: 400
     end
