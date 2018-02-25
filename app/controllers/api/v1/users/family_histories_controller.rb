@@ -12,7 +12,7 @@ def create
       @user.family_histories << @familyhistory
       response = {
         data: {
-          redcord_id: UserFamilyHistory.find_by(user_id: @user.id, family_history_id: @medicalhistory.id).id,
+          redcord_id: UserFamilyHistory.find_by(user_id: @user.id, family_history_id: @familyhistory.id).id,
           id: @familyhistory.id,
           name: @familyhistory.name,
           user: {
