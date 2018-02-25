@@ -19,7 +19,7 @@ def create
             id: @user.id,
           },
           note: {
-            note: UserFamilylHistory.find_by(user_id: @user.id, family_history_id: @familyhistory.id).note
+            note: UserFamilyHistory.find_by(user_id: @user.id, family_history_id: @familyhistory.id).note
           },
         }
       }
