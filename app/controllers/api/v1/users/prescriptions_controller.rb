@@ -48,7 +48,7 @@ class Api::V1::Users::PrescriptionsController < ApplicationController
   end
 
   def destroy
-    if prescription = Prescription.find_by(id: params[:prescription_id], user_id: @user.id)
+    if prescription = Prescription.find_by(id: params[:prescription_id], user_id: params[:user_id])
       prescription.destroy
       render json: { message: "Successfully removed #{prescription.name} from #{@user.email}"}, status: 200
     else

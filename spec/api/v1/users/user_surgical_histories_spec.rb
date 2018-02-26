@@ -21,18 +21,11 @@ RSpec.describe 'user surgical histories API' do
   describe "#create" do
     context "the user and surgical history already exist" do
       it "it can create a new user surgical history" do
-        post "/api/v1/users/#{user.id}/surgical_histories/#{surgical_history.id}"
+        post "/api/v1/users/#{user.id}/surgical_histories",  {params: {name: 'knee replacement', date: Date.new, location: 'Maine Medical', physician: "Dr. Who"}}
 
         expect(response.status).to eq(201)
-        expect(user.surgical_histories).to include(surgical_history)
-      end
-    end
-
-    context "the user or surgical history does not exist" do
-      it "it cannot create a new user surgical history" do
-        post "/api/v1/users/50/medical_histories/70"
-
-        expect(response.status).to eq(404)
+        expect(SurgicalHistory.last.name).to eq("knee replacement")
+        expect(SurgicalHistory.last.location).to eq("Maine Medical")
       end
     end
   end
@@ -41,8 +34,7 @@ RSpec.describe 'user surgical histories API' do
     context "the user and surgical history already exist" do
 
       it "it can delete a user's surgical history" do
-        @surgicalhistory_2 = create(:surgical_history)
-        user.surgical_histories << @surgicalhistory_2
+        @surgicalhistory_2 = user.surgical_histories.last
         delete "/api/v1/users/#{user.id}/surgical_histories/#{@surgicalhistory_2.id}"
 
         user.reload
@@ -62,14 +54,11 @@ RSpec.describe 'user surgical histories API' do
 describe "#update" do
 
     it "it can update a user's surgical history" do
-      @surgicalhistory_2 = create(:surgical_history)
-      user.surgical_histories << @surgicalhistory_2
+  
 
-      patch "/api/v1/users/#{user.id}/surgical_histories/#{@surgicalhistory_2.id}", params: {:note => "I had this condition during the summer of 2009"}
-      user_surgical_history = UserSurgicalHistory.find_by(user_id: user.id, surgical_history_id: @surgicalhistory_2.id)
+    patch "/api/v1/users/#{user.id}/surgical_histories/#{user.surgical_histories.last.id}", {params: {location: "UTK"} }
 
       expect(response).to be_success
-      expect(user_surgical_history.note).to eq("I had this condition during the summer of 2009")
     end
   end
 end

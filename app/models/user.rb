@@ -18,4 +18,5 @@ class User < ApplicationRecord
   has_many :health_maintenances, through: :user_health_maintenances
 
   has_many :prescriptions
+  has_many :surgical_histories
 end
