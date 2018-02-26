@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
+root "welcome#index"
+
 namespace :api do
     namespace :v1 do
     resources :medical_histories,  only: [:index]
     resources :family_histories,  only: [:index]
-    resources :surgical_histories,  only: [:index]
     resources :immunizations,  only: [:index]
     resources :health_maintenances, only: [:index]
 

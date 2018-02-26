@@ -1,0 +1,94 @@
+<div class="container">
+  <h1>Welcome to MyHealthCase API!</h1>
+
+  <div class="instructions">
+    <p>The following endpoints are available. All endpoints will return the data as JSON.</p>
+
+    <div class="api">
+      <p>Medical History Endpoints:</p>
+      <ul>
+        <li><code>GET /api/v1/medical_histories</code> - returns a list of medical conditions in the database</li>
+
+        <li><code>GET /api/v1/:user_id/medical_histories</code> - returns the medical history associated with the specific <code>:user_id</code> you've passed in or 404 if the user is not found</li>
+
+        <li><code>POST /api/v1/:user_id/medical_histories/:medical_history_id'</code> - allows creating a new medical condition by passing in the<code>:user_id</code> and <code> :medical_history_id</code> If record is successfully created, the medical condition and user will be returned. If the user or medical condition is not successfully created, a 400 status code will be returned. Both the user  and the medical condition need to already be in the database.</li>
+
+        <li><code>PATCH /api/v1/:user_id/medical_histories/:medical_history_id'</code> - allows one to update an existing record with the parameters:<br> <code> { note: "whatever ever text you want to add"} }</code><br> If record is successfully updated, the health condition item will be returned. If the record is not successfully updated, a 400 status code will be returned.</li>
+
+        <li><code>DELETE /api/v1/:user_id/medical_histories/:medical_history_id</code> - will delete the record with the matching user_id and medical_condition_id passed in. If the record can't be found, a 404 will be returned.</li>
+      </ul>
+    </div>
+
+  <div class="api">
+    <p>Family History Endpoints:</p>
+    <ul>
+      <li><code>GET /api/v1/family_histories</code> - returns a list of family conditions in the database</li>
+
+      <li><code>GET /api/v1/:user_id/family_histories</code> - returns the family history associated with the specific <code>:user_id</code> you've passed in or 404 if the user is not found</li>
+
+      <li><code>POST /api/v1/:user_id/family_histories/:family_history_id'</code> - allows creating a new family History by passing in the<code>:user_id</code> and <code> :family_history_id</code> If record is successfully created, the family history record and user will be returned. If the user or family history is not successfully created, a 400 status code will be returned. Both the user  and the family history need to already be in the database.</li>
+
+      <li><code>PATCH /api/v1/:user_id/family_histories/:family_history_id'</code> - allows one to update an existing record with the parameters:<br> <code> { note: "whatever ever text you want to add"} }</code><br> If record is successfully updated, the family history item will be returned. If the record is not successfully updated, a 400 status code will be returned.</li>
+
+      <li><code>DELETE /api/v1/:user_id/family_histories/:family_history_id</code> - will delete the record with the matching user_id and family_history_id passed in. If the record can't be found, a 404 will be returned.</li>
+    </ul>
+  </div>
+
+  <div class="api">
+    <p>Surgical History Endpoints:</p>
+    <ul>
+      <li><code>GET /api/v1/:user_id/surgical_histories</code> - returns the surgical history associated with the specific <code>:user_id</code> you've passed in or 404 if the user is not found</li>
+
+      <li><code>POST /api/v1/:user_id/surgical_histories'</code> - allows creating a new surgical history by passing in the<code>:user_id</code>  and parameters <code> { name: "Name of surgery", location: "Name of the hospital", date: DateFormat, phyisican: "Name of the provider"} }</code> If record is successfully created, the surgical history record and user will be returned. A 400 status code will be returned if not succesfully created.</li>
+
+      <li><code>DELETE /api/v1/:user_id/surgical_histories/:surgical_history_id</code> - will delete the record with the matching user_id and surgical_history_id passed in. If the record can't be found, a 404 will be returned.</li>
+    </ul>
+  </div>
+
+  <div class="api">
+    <p>Prescription Endpoints:</p>
+    <ul>
+      <li><code>GET /api/v1/:user_id/prescriptions</code> - returns the prescriptions associated with the specific <code>:user_id</code> you've passed in or 404 if the user is not found</li>
+
+      <li><code>POST /api/v1/:user_id/prescriptions'</code> - allows creating a new surgical history by passing in the<code>:user_id</code>  and parameters <code> { name: "Name of surgery", dosage: "amount", frequency: "how often", note: "anything you want to note"} }</code> If record is successfully created, the prescription record and user will be returned. A 400 status code will be returned if not succesfully created.</li>
+
+      <li><code>PATCH /api/v1/:user_id/prescriptions/:prescription_id</code> allows one to update an existing record with the parameters:<br> <code> { note: "whatever ever text you want to add"} }</code><br> If record is successfully updated, the prescription item will be returned. If the record is not successfully updated, a 400 status code will be returned.</li>
+
+      <li><code>DELETE /api/v1/:user_id/prescriptions/:prescription_id</code> - will delete the record with the matching user_id and prescription_id passed in. If the record can't be found, a 404 will be returned.</li>
+    </ul>
+  </div>
+
+  <div class="api">
+    <p>Immunizations Endpoints:</p>
+    <ul>
+      <li><code>GET /api/v1/immunizations</code> - returns a list of immunizations in the database</li>
+
+      <li><code>GET /api/v1/:user_id/immunizations</code> - returns the immunizations associated with the specific <code>:user_id</code> you've passed in or 404 if the user is not found</li>
+
+      <li><code>POST /api/v1/:user_id/immunizations/:immunization_id'</code> - allows creating a new immunization record by passing in the<code>:user_id</code>  and <code> :immunization_id</code> If record is successfully created, the immunization record and user will be returned. A 400 status code will be returned if not succesfully created.</li>
+
+      <li><code>PATCH /api/v1/:user_id/immunizations/:immunization_id</code> allows one to update an existing record with the parameters:<br> <code> { note: "whatever ever text you want to add"} }</code><br> If record is successfully updated, the prescription item will be returned. If the record is not successfully updated, a 400 status code will be returned.</li>
+
+      <li><code>DELETE /api/v1/:user_id/immunizations/:immunization_id</code> - will delete the record with the matching user_id and immunization_id passed in. If the record can't be found, a 404 will be returned.</li>
+    </ul>
+  </div>
+
+  <div class="api">
+    <p>Health Maintenance Endpoints:</p>
+    <ul>
+      <li><code>GET /api/v1/health_maintenances</code> - returns a list of health maintenance procedures in the database</li>
+
+      <li><code>GET /api/v1/:user_id/health_maintenances</code> - returns the health_maintenances associated with the specific <code>:user_id</code> you've passed in or 404 if the user is not found</li>
+
+      <li><code>POST /api/v1/:user_id/health_maintenances/:health_maintenance_id'</code> - allows creating a new immunization record by passing in the<code>:user_id</code>  and <code> :health_maintenance_id</code> If record is successfully created, the immunization record and user will be returned. A 400 status code will be returned if not succesfully created.</li>
+
+      <li><code>PATCH /api/v1/:user_id/health_maintenances/:health_maintenance_id</code> allows one to update an existing record with the parameters:<br> <code> { note: "whatever ever text you want to add"} }</code><br> If record is successfully updated, the prescription item will be returned. If the record is not successfully updated, a 400 status code will be returned.</li>
+
+      <li><code>DELETE /api/v1/:user_id/health_maintenances/:health_maintenance_id</code> - will delete the record with the matching user_id and immunization_id passed in. If the record can't be found, a 404 will be returned.</li>
+    </ul>
+  </div>
+
+
+
+  </div>
+</div>
