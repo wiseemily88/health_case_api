@@ -1,24 +1,14 @@
 # README
-This is HealthCase
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is MyHealthCase API
 
-Things you may want to cover:
+This API serves as the backend for the MyHealthCase App, which is a React Frontend and a part of my Mod 4 Capstone project. .
 
-* Ruby version
+You will find API documentation here.
+https://gentle-citadel-13422.herokuapp.com/
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Setup
+Clone the application to your local machine
+Run the following setup commands
+bundle
+rake db:create
+rake db:migrate
