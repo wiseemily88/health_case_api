@@ -8,11 +8,11 @@
 
 h1 {
   text-align: center;
-  color: #18DDC2;
+  color: #437C90;
 }
 
 body {
-  background-color: #F1EDEC;
+  background-color: #F7F7FF;
 }
 
 .container {
@@ -30,7 +30,7 @@ code {
 
 .api p {
   font-weight: bold;
-  color: #18DDC2;
+  color: #437C90;
   margin-bottom: 0;
 }
 
