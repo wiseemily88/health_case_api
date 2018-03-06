@@ -9,16 +9,18 @@ class Api::V1::Users::HealthMaintenancesController < ApplicationController
   def create
     if @user && @health_maintenance
       @user.health_maintenances << @health_maintenance
+      record = UserHealthMaintenance.find_by(user_id: @user.id, health_maintenance_id: @health_maintenance.id)
       response = {
         data: {
-          redcord_id: UserHealthMaintenance.find_by(user_id: @user.id, health_maintenance_id: @health_maintenance.id).id,
+          record_id: record.id,
           id: @health_maintenance.id,
           name: @health_maintenance.name,
+          date: record.date,
           user: {
             id: @user.id,
           },
           note: {
-            note: UserHealthMaintenance.find_by(user_id: @user.id, health_maintenance_id: @health_maintenance.id).note
+            note: record.note
           },
         }
       }
@@ -46,6 +48,7 @@ class Api::V1::Users::HealthMaintenancesController < ApplicationController
       data: {
         id: @health_maintenance.id,
         name: @health_maintenance.name,
+        date: record.date,
         user: {
           id: @user.id,
         },
